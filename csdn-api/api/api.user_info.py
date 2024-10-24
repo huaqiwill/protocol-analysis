@@ -1,0 +1,76 @@
+"""
+获取个人信息
+"""
+
+import requests
+
+cookies = {
+    'uuid_tt_dd': '10_37516577790-1724692186952-321991',
+    'fid': '20_95226090043-1724692188573-326379',
+    'UN': 'HuaQi666',
+    'p_uid': 'U010000',
+    'csdn_newcert_HuaQi666': '1',
+    'Hm_ct_6bcd52f51e9b3dce32bec4a3997715ac': '6525*1*10_37516577790-1724692186952-321991!5744*1*HuaQi666',
+    'c_adb': '1',
+    'c_segment': '7',
+    'dc_sid': '964b005da4f1c354d68f2e8671cb1f08',
+    'Hm_lvt_6bcd52f51e9b3dce32bec4a3997715ac': '1729345930,1729492809,1729576571,1729663409',
+    'HMACCOUNT': '77878E19201E8E01',
+    'SESSION': '671e7575-eeb1-4748-9a49-9dfc5ab458a1',
+    'loginbox_strategy': '%7B%22taskId%22%3A317%2C%22abCheckTime%22%3A1729664275274%2C%22version%22%3A%22ExpA%22%2C%22nickName%22%3A%22Huaqiwill%22%7D',
+    'UserName': 'HuaQi666',
+    'UserInfo': '0a7ac2961dde416b89e6f1344f0bc3e7',
+    'UserToken': '0a7ac2961dde416b89e6f1344f0bc3e7',
+    'UserNick': 'Huaqiwill',
+    'AU': 'FF2',
+    'BT': '1729664291880',
+    'c_dl_prid': '1725187554132_201284',
+    'c_dl_rid': '1729666746863_925693',
+    'c_dl_fref': 'https://blog.csdn.net/',
+    'c_dl_fpage': '/',
+    'c_dl_um': 'distribute.pc_feed_blog_category.none-task-blog-classify_tag-3-142962398-null-null.nonecase',
+    'dp_token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTM3NDU4NSwiZXhwIjoxNzMwMzAyMzIyLCJpYXQiOjE3Mjk2OTc1MjIsInVzZXJuYW1lIjoiSHVhUWk2NjYifQ.gGJc8G2VCO5uXcCgF1JSl5U3NdlQ2JvFpbZAXrrphpU',
+    '_clck': '15joqmv%7C2%7Cfqa%7C0%7C1699',
+    'firstDie': '1',
+    'creative_btn_mp': '3',
+    'dc_session_id': '10_1729768650546.908233',
+    'c_first_ref': 'www.bing.com',
+    'c_first_page': 'https%3A//blog.csdn.net/ityard/article/details/135470025',
+    'c_dsid': '11_1729768892880.760817',
+    'c_page_id': 'default',
+    'fe_request_id': '1729769542669_7031_8361021',
+    '_clsk': '2mzc3n%7C1729769899847%7C4%7C0%7Cu.clarity.ms%2Fcollect',
+    'c_pref': 'https%3A//blog.csdn.net/ityard/article/details/135470025',
+    'c_ref': 'https%3A//blog.csdn.net/HuaQi666%3Ftype%3Dblog',
+    'creativeSetApiNew': '%7B%22toolbarImg%22%3A%22https%3A//img-home.csdnimg.cn/images/20230921102607.png%22%2C%22publishSuccessImg%22%3A%22https%3A//img-home.csdnimg.cn/images/20240229024608.png%22%2C%22articleNum%22%3A15%2C%22type%22%3A2%2C%22oldUser%22%3Atrue%2C%22useSeven%22%3Afalse%2C%22oldFullVersion%22%3Atrue%2C%22userName%22%3A%22HuaQi666%22%7D',
+    'log_Id_pv': '226',
+    'log_Id_click': '173',
+    'log_Id_view': '7893',
+    'Hm_lpvt_6bcd52f51e9b3dce32bec4a3997715ac': '1729769938',
+    'dc_tos': 'sluz0y',
+}
+
+headers = {
+    'accept': 'application/json, text/plain, */*',
+    'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
+    'cache-control': 'no-cache',
+    # 'cookie': 'uuid_tt_dd=10_37516577790-1724692186952-321991; fid=20_95226090043-1724692188573-326379; UN=HuaQi666; p_uid=U010000; csdn_newcert_HuaQi666=1; Hm_ct_6bcd52f51e9b3dce32bec4a3997715ac=6525*1*10_37516577790-1724692186952-321991!5744*1*HuaQi666; c_adb=1; c_segment=7; dc_sid=964b005da4f1c354d68f2e8671cb1f08; Hm_lvt_6bcd52f51e9b3dce32bec4a3997715ac=1729345930,1729492809,1729576571,1729663409; HMACCOUNT=77878E19201E8E01; SESSION=671e7575-eeb1-4748-9a49-9dfc5ab458a1; loginbox_strategy=%7B%22taskId%22%3A317%2C%22abCheckTime%22%3A1729664275274%2C%22version%22%3A%22ExpA%22%2C%22nickName%22%3A%22Huaqiwill%22%7D; UserName=HuaQi666; UserInfo=0a7ac2961dde416b89e6f1344f0bc3e7; UserToken=0a7ac2961dde416b89e6f1344f0bc3e7; UserNick=Huaqiwill; AU=FF2; BT=1729664291880; c_dl_prid=1725187554132_201284; c_dl_rid=1729666746863_925693; c_dl_fref=https://blog.csdn.net/; c_dl_fpage=/; c_dl_um=distribute.pc_feed_blog_category.none-task-blog-classify_tag-3-142962398-null-null.nonecase; dp_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTM3NDU4NSwiZXhwIjoxNzMwMzAyMzIyLCJpYXQiOjE3Mjk2OTc1MjIsInVzZXJuYW1lIjoiSHVhUWk2NjYifQ.gGJc8G2VCO5uXcCgF1JSl5U3NdlQ2JvFpbZAXrrphpU; _clck=15joqmv%7C2%7Cfqa%7C0%7C1699; firstDie=1; creative_btn_mp=3; dc_session_id=10_1729768650546.908233; c_first_ref=www.bing.com; c_first_page=https%3A//blog.csdn.net/ityard/article/details/135470025; c_dsid=11_1729768892880.760817; c_page_id=default; fe_request_id=1729769542669_7031_8361021; _clsk=2mzc3n%7C1729769899847%7C4%7C0%7Cu.clarity.ms%2Fcollect; c_pref=https%3A//blog.csdn.net/ityard/article/details/135470025; c_ref=https%3A//blog.csdn.net/HuaQi666%3Ftype%3Dblog; creativeSetApiNew=%7B%22toolbarImg%22%3A%22https%3A//img-home.csdnimg.cn/images/20230921102607.png%22%2C%22publishSuccessImg%22%3A%22https%3A//img-home.csdnimg.cn/images/20240229024608.png%22%2C%22articleNum%22%3A15%2C%22type%22%3A2%2C%22oldUser%22%3Atrue%2C%22useSeven%22%3Afalse%2C%22oldFullVersion%22%3Atrue%2C%22userName%22%3A%22HuaQi666%22%7D; log_Id_pv=226; log_Id_click=173; log_Id_view=7893; Hm_lpvt_6bcd52f51e9b3dce32bec4a3997715ac=1729769938; dc_tos=sluz0y',
+    'origin': 'https://i.csdn.net',
+    'pragma': 'no-cache',
+    'priority': 'u=1, i',
+    'referer': 'https://i.csdn.net/',
+    'sec-ch-ua': '"Chromium";v="128", "Not;A=Brand";v="24", "Microsoft Edge";v="128"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-site',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0',
+    'x-ca-key': '203796071',
+    'x-ca-nonce': '81ab422c-a139-4c12-b0ff-0c42009d9c1c',
+    'x-ca-signature': 'YrwcZL2Fn5epdxBAqwJk8tNzPtnVvwZeqIBJbK/Uqmg=',
+    'x-ca-signature-headers': 'x-ca-key,x-ca-nonce',
+}
+
+response = requests.get('https://bizapi.csdn.net/community-personal/v1/get-personal-info', cookies=cookies, headers=headers)
+print(response.text)
